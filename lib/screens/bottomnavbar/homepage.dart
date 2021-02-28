@@ -1,4 +1,5 @@
 import 'package:doctor/screens/categoriesandoffers.dart';
+import 'package:doctor/screens/doctorprofile.dart';
 import 'package:doctor/screens/result.dart';
 import 'package:doctor/widgets/customappbar.dart';
 import 'package:doctor/widgets/homepageitem.dart';
@@ -189,6 +190,9 @@ Map<int, List> offers = {
             ),
           ],
         ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {return DoctorProfile();}));
+        }
       ),
     );
   }

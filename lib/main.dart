@@ -1,4 +1,4 @@
-import 'package:doctor/screens/bottomnavbar/bottomnavbar.dart';
+import 'package:doctor/screens/signin.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavBar(),
+      home: SignIn(),
     );
   }
 }

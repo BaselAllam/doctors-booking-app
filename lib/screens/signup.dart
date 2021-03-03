@@ -1,27 +1,35 @@
 import 'package:doctor/screens/bottomnavbar/bottomnavbar.dart';
-import 'package:doctor/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 
 
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
 
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
-TextEditingController resetEmailController = TextEditingController();
-
-bool pressed = true;
+TextEditingController nameController = TextEditingController();
+TextEditingController mobileNumberController = TextEditingController();
 
 GlobalKey<FormState> emailKey = GlobalKey<FormState>();
 GlobalKey<FormState> passwordKey = GlobalKey<FormState>();
+GlobalKey<FormState> nameKey = GlobalKey<FormState>();
+GlobalKey<FormState> mobileNumberKey = GlobalKey<FormState>();
 
 final _formKey = GlobalKey<FormState>();
+
+bool pressed = true;
+
+String countryCode = 'Code';
+
+bool checked = false;
+
+DateTime birthDate = DateTime(1960);
 
   @override
   Widget build(BuildContext context) {
@@ -45,53 +53,96 @@ final _formKey = GlobalKey<FormState>();
                   shape: BoxShape.circle
                 ),
               ),
-              field('Email Address', Icons.email, TextInputType.emailAddress, false, emailController, key: emailKey),
-              field('Password', Icons.lock, TextInputType.text, pressed, passwordController, key: passwordKey),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: InkWell(
-                  child: Text(
-                    'Forgot Password ?!',
-                    style: TextStyle(color: Colors.grey, fontSize: 17.0, fontWeight: FontWeight.normal, height: 1.5),
+              field('Email Address', Icons.email, TextInputType.emailAddress, false, emailController, emailKey),
+              field('Full Name', Icons.person, TextInputType.text, false, nameController, nameKey),
+              Row(
+                children: [
+                   PopupMenuButton(
+                        child: Text(
+                          countryCode,
+                          style: TextStyle(color: Colors.grey, fontSize: 15.0, fontWeight: FontWeight.bold),
+                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                        itemBuilder: (BuildContext context){
+                          return <PopupMenuEntry<String>>[
+                            PopupMenuItem(
+                              child: Text(
+                                'Egypt +20',
+                                style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+                              ),
+                              value: '+20'
+                            ),
+                            PopupMenuItem(
+                              child: Text(
+                                'UAE +967',
+                                style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+                              ),
+                              value: '+967'
+                            ),
+                            PopupMenuItem(
+                              child: Text(
+                                'Mansoura +050',
+                                style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+                              ),
+                              value: '+050'
+                            ),
+                            PopupMenuItem(
+                              child: Text(
+                                'Kuwait +965',
+                                style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+                              ),
+                              value: '+965'
+                            ),
+                          ];
+                        },
+                        onSelected: (value){
+                          setState(() {
+                            countryCode = value;
+                          });
+                        },
+                      ),
+                  Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    child: field('Mobile Number', Icons.phone_android, TextInputType.number, false, mobileNumberController, mobileNumberKey),
                   ),
-                  onTap: () {
-                    return showDialog(
-                      context: context,
-                      builder: (BuildContext context){
-                        return AlertDialog(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                          title: Text(
-                            'Enter Email Address',
-                            style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
-                          ),
-                          content: field('Email Address', Icons.email, TextInputType.emailAddress, false, resetEmailController),
-                          actions: [
-                            FlatButton(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0), side: BorderSide(color: Colors.grey, width: 0.5)),
-                              color: Colors.transparent,
-                              child: Text(
-                                'Send Code',
-                                style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0), side: BorderSide(color: Colors.grey, width: 0.5)),
-                              color: Colors.transparent,
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                return Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
-                      }
-                    );
-                  }
+                ], 
+              ),
+              field('Password', Icons.lock, TextInputType.text, pressed, passwordController, passwordKey),
+              ListTile(
+                title: Text(
+                    'Date of Birth',
+                    style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                subtitle: Text(
+                  '${birthDate.toString().substring(0, 10)}',
+                  style: TextStyle(color: Colors.grey, fontSize: 17.0, fontWeight: FontWeight.bold),
+                ),
+                onTap: () async {
+                  var _pickedDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(1960),
+                    lastDate: DateTime(2002),
+                    initialDate: DateTime(1960),
+                  );
+                  setState(() {
+                    birthDate = _pickedDate;
+                  });
+                },
+              ),
+              ListTile(
+                title: Text(
+                    'Accept Terms & Conditions',
+                    style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                trailing: Checkbox(
+                  value: checked,
+                  onChanged: (value){
+                    setState(() {
+                      checked = value;
+                    });
+                  },
+                  activeColor: Colors.black,
+                  checkColor: Colors.white,
                 ),
               ),
               Builder(
@@ -100,12 +151,14 @@ final _formKey = GlobalKey<FormState>();
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                     color: Color(0xff00BBDC),
                     child: Text(
-                      'Sign in',
+                      'Sign Up',
                       style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       if(!_formKey.currentState.validate()){
-                        return Scaffold.of(context).showSnackBar(snack('Fields Required!'));
+                        return Scaffold.of(context).showSnackBar(snack('fields Required!'));
+                      }else if(checked == false){
+                        return Scaffold.of(context).showSnackBar(snack('Accepts Terms & Condtions!'));
                       }else{
                         return Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {return BottomNavBar();}));
                       }
@@ -137,11 +190,11 @@ final _formKey = GlobalKey<FormState>();
                 alignment: Alignment.bottomCenter,
                 child: InkWell(
                   child: Text(
-                    'Don\'t have an account ?! Sign Up',
+                    'have an account ?! Sign In',
                     style: TextStyle(color: Color(0xff00BBDC), fontSize: 20.0, fontWeight: FontWeight.bold, height: 2.5),
                   ),
                   onTap: () {
-                    return Navigator.push(context, MaterialPageRoute(builder: (_) {return SignUp();}));
+                    return Navigator.pop(context);
                   }
                 ),
               ),
@@ -151,7 +204,7 @@ final _formKey = GlobalKey<FormState>();
       ),
     );
   }
-  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, {Key key}) {
+  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, Key key) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(

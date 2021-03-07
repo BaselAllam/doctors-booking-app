@@ -1,4 +1,5 @@
 import 'package:doctor/screens/signin.dart';
+import 'package:doctor/screens/splash.dart';
 import 'package:flutter/material.dart';
 
 

@@ -84,7 +84,7 @@ Map<int, List> filters = {
       ),
     );
   }
-  filter(Map map) {
+  filter(Map<int, List> map) {
     return Container(
       height: 60.0,
       child: ListView.builder(
@@ -132,7 +132,7 @@ bool check = false;
                   SafeArea(
                     top: true,
                     child: Text(
-                      '${widget.map[widget.index][1]}',
+                      '${widget.map[widget.index]![1]}',
                       style: TextStyle(
                           color: Color(0xff00BBDC),
                           fontWeight: FontWeight.bold,
@@ -142,9 +142,9 @@ bool check = false;
                   Flexible(
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: widget.map[widget.index][2].length,
+                      itemCount: widget.map[widget.index]![2].length,
                       itemBuilder: (context, index){
-                        return filterSubItem(widget.map[widget.index][2][index]);
+                        return filterSubItem(widget.map[widget.index]![2][index]);
                       }
                     ),
                   ),
@@ -165,7 +165,7 @@ bool check = false;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${widget.map[widget.index][1]}  ',
+              '${widget.map[widget.index]![1]}  ',
               style: TextStyle(
                   color: Color(0xff00BBDC),
                   fontWeight: FontWeight.bold,
@@ -173,7 +173,7 @@ bool check = false;
             ),
             SizedBox(width: 5),
             Icon(
-              widget.map[widget.index][0],
+              widget.map[widget.index]![0],
               color: Color(0xff00BBDC),
               size: 30,
             )
@@ -198,7 +198,7 @@ bool check = false;
         value: check,
         onChanged: (value) {
           setState(() {
-            check = value;
+            check = value!;
           });
         },
       ),

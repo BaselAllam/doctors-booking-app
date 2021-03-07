@@ -1,5 +1,4 @@
 import 'package:doctor/widgets/favicon.dart';
-import 'package:doctor/widgets/rating.dart';
 import 'package:doctor/widgets/reviewitem.dart';
 import 'package:flutter/material.dart';
 
@@ -175,30 +174,30 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   'Overall Rating',
                   style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.5),
                 ),
-                subtitle: RatingBar(
-                  onRatingUpdate: null,
-                  direction: Axis.horizontal,
-                  initialRating: 4.5,
-                  itemCount: 5,
-                  itemSize: 15,
-                  minRating: 1.0,
-                  maxRating: 5.0,
-                  ratingWidget: RatingWidget(
-                      full: Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      ),
-                      half: Icon(
-                        Icons.star_half,
-                        color: Colors.yellow,
-                      ),
-                      empty: Icon(
-                        Icons.star_border,
-                        color: Colors.yellow,
-                      )),
-                  glowColor: Colors.yellow,
-                  unratedColor: Colors.grey,
-                ),
+                // subtitle: RatingBar(
+                //   onRatingUpdate: (value) {},
+                //   direction: Axis.horizontal,
+                //   initialRating: 4.5,
+                //   itemCount: 5,
+                //   itemSize: 15,
+                //   minRating: 1.0,
+                //   maxRating: 5.0,
+                //   ratingWidget: RatingWidget(
+                //       full: Icon(
+                //         Icons.star,
+                //         color: Colors.yellow,
+                //       ),
+                //       half: Icon(
+                //         Icons.star_half,
+                //         color: Colors.yellow,
+                //       ),
+                //       empty: Icon(
+                //         Icons.star_border,
+                //         color: Colors.yellow,
+                //       )),
+                //   glowColor: Colors.yellow,
+                //   unratedColor: Colors.grey,
+                // ),
               ),
               Row(
                 children: [

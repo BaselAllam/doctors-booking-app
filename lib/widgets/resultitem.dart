@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 
 class ResultItem extends StatefulWidget {
 
-final String drName;
-final String type;
-final double rating;
-final String image;
-final int reviews;
-final int fee;
-final String currency;
-final String location;
+final String? drName;
+final String? type;
+final double? rating;
+final String? image;
+final int? reviews;
+final int? fee;
+final String? currency;
+final String? location;
 
 ResultItem({this.drName, this.type,this.rating, this.image, this.reviews, this.fee, this.location, this.currency});
 
@@ -46,7 +46,7 @@ bool pressed = false;
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(widget.image),
+                    image: NetworkImage(widget.image!),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -59,10 +59,10 @@ bool pressed = false;
                     style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.5),
                   ),
                   Text(
-                    widget.type,
+                    widget.type!,
                     style: TextStyle(color: Color(0xff00BBDC), fontSize: 18.0, fontWeight: FontWeight.bold, height: 1.5),
                   ),
-                  ReviewItem(widget.rating, widget.reviews),
+                  ReviewItem(widget.rating!, widget.reviews!),
                   Text(
                     '${widget.location}',
                     style: TextStyle(color: Color(0xff18435A), fontSize: 16.0, fontWeight: FontWeight.bold),

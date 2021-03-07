@@ -1,6 +1,7 @@
 import 'package:doctor/screens/bottomnavbar/bottomnavbar.dart';
 import 'package:doctor/screens/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -55,7 +56,7 @@ final _formKey = GlobalKey<FormState>();
                     style: TextStyle(color: Colors.grey, fontSize: 17.0, fontWeight: FontWeight.normal, height: 1.5),
                   ),
                   onTap: () {
-                    return showDialog(
+                    showDialog(
                       context: context,
                       builder: (BuildContext context){
                         return AlertDialog(
@@ -103,11 +104,16 @@ final _formKey = GlobalKey<FormState>();
                       'Sign in',
                       style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {
-                      if(!_formKey.currentState.validate()){
-                        return Scaffold.of(context).showSnackBar(snack('Fields Required!'));
+                    onPressed: () async {
+                      if(!_formKey.currentState!.validate()){
+                        Scaffold.of(context).showSnackBar(snack('Fields Required!'));
                       }else{
-                        return Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {return BottomNavBar();}));
+                        bool _valid = await saveData();
+                        if(_valid == true){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {return BottomNavBar();}));
+                        }else{
+                          Scaffold.of(context).showSnackBar(snack('Some Thing Went Wrong!'));
+                        }
                       }
                     },
                   );
@@ -141,7 +147,7 @@ final _formKey = GlobalKey<FormState>();
                     style: TextStyle(color: Color(0xff00BBDC), fontSize: 20.0, fontWeight: FontWeight.bold, height: 2.5),
                   ),
                   onTap: () {
-                    return Navigator.push(context, MaterialPageRoute(builder: (_) {return SignUp();}));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {return SignUp();}));
                   }
                 ),
               ),
@@ -151,13 +157,13 @@ final _formKey = GlobalKey<FormState>();
       ),
     );
   }
-  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, {Key key}) {
+  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, {Key? key}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         key: key,
         validator: (value) {
-          if(value.isEmpty){
+          if(value!.isEmpty){
             return 'This Field required?';
           }else{
             return null;
@@ -208,5 +214,14 @@ final _formKey = GlobalKey<FormState>();
       content: Text(content),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0),))
     );
+  }
+Future<bool> saveData() async {
+    try {
+      SharedPreferences _user = await SharedPreferences.getInstance();
+      _user.setString('email', emailController.text);
+    return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

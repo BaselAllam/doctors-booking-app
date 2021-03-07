@@ -131,7 +131,7 @@ TextEditingController searchController = TextEditingController();
       ),
       trailing: Icon(Icons.navigate_next, color: Colors.grey, size: 25.0),
       onTap: () {
-        return Navigator.push(context, MaterialPageRoute(builder: (_) {
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
           if(title == 'Suggested Doctors'){
             return Result();
           }else{
@@ -206,7 +206,7 @@ TextEditingController searchController = TextEditingController();
       keyboardType: TextInputType.text,
       controller: searchController,
       onSubmitted: (value){
-        return Navigator.push(context, MaterialPageRoute(builder: (_) {return Result();}));
+        Navigator.push(context, MaterialPageRoute(builder: (_) {return Result();}));
       },
     );
   }

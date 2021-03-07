@@ -1,5 +1,6 @@
 import 'package:doctor/widgets/customappbar.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -10,6 +11,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+PickedFile? image;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +28,15 @@ class _ProfileState extends State<Profile> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: ListTile(
-                  leading: CircleAvatar(
+                  leading: image == null ? CircleAvatar(
                     minRadius: 40.0,
                     maxRadius: 40.0,
                     backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/44323531?s=460&u=4a0966bc4213dfd7da98c0ca07273948bc32bfad&v=4'),
+                  ) : 
+                  CircleAvatar(
+                    minRadius: 40.0,
+                    maxRadius: 40.0,
+                    backgroundImage: AssetImage(image!.path)
                   ),
                   title: Text(
                     'Bassel Allam',
@@ -37,6 +46,45 @@ class _ProfileState extends State<Profile> {
                     'View Profile',
                     style: TextStyle(color: Colors.white54, fontSize: 20.0, fontWeight: FontWeight.normal),
                   ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                          title: Text(
+                            'Choose Camera Or Gallery',
+                            style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          actions: [
+                            FlatButton(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0), side: BorderSide(color: Colors.grey, width: 0.5)),
+                              color: Colors.transparent,
+                              child: Text(
+                                'Camera',
+                                style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                getImage(ImageSource.camera);
+                              },
+                            ),
+                            FlatButton(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0), side: BorderSide(color: Colors.grey, width: 0.5)),
+                              color: Colors.transparent,
+                              child: Text(
+                                'Gallery',
+                                style: TextStyle(color: Colors.grey, fontSize: 20.0, fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                getImage(ImageSource.gallery);
+                              },
+                            ),
+                          ],
+                        );
+                      }
+                    );
+                  }
                 ),
               ),
               'Profile'
@@ -66,5 +114,11 @@ class _ProfileState extends State<Profile> {
         trailing: Icon(Icons.navigate_next, color: Colors.grey, size: 20.0),
       ),
     );
+  }
+  getImage(ImageSource source) async {
+    var _pickedFile = await ImagePicker().getImage(source: source);
+    setState(() {
+      image = _pickedFile;
+    });
   }
 }

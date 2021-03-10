@@ -125,7 +125,7 @@ DateTime birthDate = DateTime(1960);
                     initialDate: DateTime(1960),
                   );
                   setState(() {
-                    birthDate = _pickedDate!;
+                    birthDate = _pickedDate;
                   });
                 },
               ),
@@ -138,7 +138,7 @@ DateTime birthDate = DateTime(1960);
                   value: checked,
                   onChanged: (value){
                     setState(() {
-                      checked = value!;
+                      checked = value;
                     });
                   },
                   activeColor: Colors.black,
@@ -155,7 +155,7 @@ DateTime birthDate = DateTime(1960);
                       style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      if(!_formKey.currentState!.validate()){
+                      if(!_formKey.currentState.validate()){
                         Scaffold.of(context).showSnackBar(snack('fields Required!'));
                       }else if(checked == false){
                         Scaffold.of(context).showSnackBar(snack('Accepts Terms & Condtions!'));
@@ -210,7 +210,7 @@ DateTime birthDate = DateTime(1960);
       child: TextFormField(
         key: key,
         validator: (value) {
-          if(value!.isEmpty){
+          if(value.isEmpty){
             return 'This Field required?';
           }else{
             return null;

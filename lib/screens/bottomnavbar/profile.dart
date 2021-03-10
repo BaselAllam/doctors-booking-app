@@ -12,7 +12,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 
-PickedFile? image;
+PickedFile image;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ PickedFile? image;
                   CircleAvatar(
                     minRadius: 40.0,
                     maxRadius: 40.0,
-                    backgroundImage: AssetImage(image!.path)
+                    backgroundImage: AssetImage(image.path)
                   ),
                   title: Text(
                     'Bassel Allam',
@@ -92,7 +92,7 @@ PickedFile? image;
             profileItem(Icons.motorcycle, 'Medicine Delivery'),
             profileItem(Icons.favorite, 'Favourite'),
             profileItem(Icons.settings, 'Settings'),
-            profileItem(Icons.logout, 'Logout'),
+            profileItem(Icons.exit_to_app, 'Logout'),
           ],
         ),
       ),

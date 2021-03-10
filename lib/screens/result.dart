@@ -12,22 +12,22 @@ class _ResultState extends State<Result> {
 
 Map<int, List> filters = {
     0: [
-      Icons.filter_list_sharp,
+      Icons.filter_list,
       'Filter',
       ['Rating Low to High', 'Rating High to Low', 'Price Low to High', 'Price Hight to Low']
       ],
     1: [
-      Icons.keyboard_arrow_down_rounded,
+      Icons.arrow_downward,
       'Gender',
       ['Male', 'Female']
       ],
     2: [
-      Icons.keyboard_arrow_down_rounded,
+      Icons.arrow_downward,
       'Distance',
       ['5 KM', '10 KM', '15 KM', '20 KM']
       ],
     3: [
-      Icons.keyboard_arrow_down_rounded,
+      Icons.arrow_downward,
       'Payment',
       ['Cache', 'Visa']
     ]
@@ -132,7 +132,7 @@ bool check = false;
                   SafeArea(
                     top: true,
                     child: Text(
-                      '${widget.map[widget.index]![1]}',
+                      '${widget.map[widget.index][1]}',
                       style: TextStyle(
                           color: Color(0xff00BBDC),
                           fontWeight: FontWeight.bold,
@@ -142,9 +142,9 @@ bool check = false;
                   Flexible(
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: widget.map[widget.index]![2].length,
+                      itemCount: widget.map[widget.index][2].length,
                       itemBuilder: (context, index){
-                        return filterSubItem(widget.map[widget.index]![2][index]);
+                        return filterSubItem(widget.map[widget.index][2][index]);
                       }
                     ),
                   ),
@@ -165,7 +165,7 @@ bool check = false;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${widget.map[widget.index]![1]}  ',
+              '${widget.map[widget.index][1]}  ',
               style: TextStyle(
                   color: Color(0xff00BBDC),
                   fontWeight: FontWeight.bold,
@@ -173,7 +173,7 @@ bool check = false;
             ),
             SizedBox(width: 5),
             Icon(
-              widget.map[widget.index]![0],
+              widget.map[widget.index][0],
               color: Color(0xff00BBDC),
               size: 30,
             )
@@ -198,7 +198,7 @@ bool check = false;
         value: check,
         onChanged: (value) {
           setState(() {
-            check = value!;
+            check = value;
           });
         },
       ),

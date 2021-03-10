@@ -105,7 +105,7 @@ final _formKey = GlobalKey<FormState>();
                       style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () async {
-                      if(!_formKey.currentState!.validate()){
+                      if(!_formKey.currentState.validate()){
                         Scaffold.of(context).showSnackBar(snack('Fields Required!'));
                       }else{
                         bool _valid = await saveData();
@@ -157,13 +157,13 @@ final _formKey = GlobalKey<FormState>();
       ),
     );
   }
-  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, {Key? key}) {
+  field(String label, IconData icon, TextInputType type, bool obsecure, TextEditingController controller, {Key key}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         key: key,
         validator: (value) {
-          if(value!.isEmpty){
+          if(value.isEmpty){
             return 'This Field required?';
           }else{
             return null;

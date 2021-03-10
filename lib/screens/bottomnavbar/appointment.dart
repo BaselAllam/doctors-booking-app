@@ -11,7 +11,7 @@ class Appointment extends StatefulWidget {
 
 class _AppointmentState extends State<Appointment> with TickerProviderStateMixin {
 
-TabController? tabController;
+TabController tabController;
 
 @override
 void initState() {
@@ -112,11 +112,11 @@ Map<int, List> data = {
         itemCount: data.length,
         itemBuilder: (context, index){
           return AppointmentItem(
-            drName : data[index]![0],
-            type : data[index]![1],
-            date : data[index]![2],
-            time : data[index]![3],
-            image : data[index]![4],
+            drName : data[index][0],
+            type : data[index][1],
+            date : data[index][2],
+            time : data[index][3],
+            image : data[index][4],
             className : 'Pervious'
           );
         }
@@ -175,11 +175,11 @@ Map<int, List> data = {
         itemCount: data.length,
         itemBuilder: (context, index){
           return AppointmentItem(
-            drName : data[index]![0],
-            type : data[index]![1],
-            date : data[index]![2],
-            time : data[index]![3],
-            image : data[index]![4],
+            drName : data[index][0],
+            type : data[index][1],
+            date : data[index][2],
+            time : data[index][3],
+            image : data[index][4],
             className : 'Upcoming'
           );
         }

@@ -4,7 +4,7 @@ import 'package:doctor/screens/result.dart';
 import 'package:doctor/widgets/customappbar.dart';
 import 'package:doctor/widgets/homepageitem.dart';
 import 'package:flutter/material.dart';
-
+import 'package:doctor/screens/searchmap.dart';
 
 
 
@@ -60,9 +60,6 @@ Map<int, List> offers = {
   ],
 };
 
-
-TextEditingController searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +77,16 @@ TextEditingController searchController = TextEditingController();
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: field()
+                child: ListTile(
+                  leading: Icon(Icons.location_on, color: Colors.white, size: 25.0),
+                  title: Text(
+                    'Search By Location',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(fullscreenDialog: true, builder: (_) {return SearchMap();}));
+                  }
+                ),
               ),
               'Home'
             ),
@@ -190,24 +196,6 @@ TextEditingController searchController = TextEditingController();
           Navigator.push(context, MaterialPageRoute(builder: (_) {return DoctorProfile();}));
         }
       ),
-    );
-  }
-  field() {
-    return TextField(
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        labelText: 'Search By Location',
-        labelStyle: TextStyle(color: Colors.white),
-        prefixIcon: Icon(Icons.search, color: Colors.white),
-      ),
-      textInputAction: TextInputAction.search,
-      keyboardType: TextInputType.text,
-      controller: searchController,
-      onSubmitted: (value){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {return Result();}));
-      },
     );
   }
 }

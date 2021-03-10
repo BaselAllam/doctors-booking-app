@@ -23,15 +23,15 @@ List screens = [HomePage(), Appointment(), Profile()];
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home'
+            title: Text('Home'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: 'Appointment'
+            title: Text('Appointment'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            label: 'Profile'
+            title: Text('Profiel'),
           ),
         ],
         selectedItemColor: Color(0xff00BBDC),

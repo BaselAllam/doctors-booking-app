@@ -2,6 +2,8 @@ import 'package:doctor/screens/bottomnavbar/appointment.dart';
 import 'package:doctor/screens/bottomnavbar/homepage.dart';
 import 'package:doctor/screens/bottomnavbar/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:doctor/models/categories/categoryController.dart';
 
 
 
@@ -13,8 +15,6 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
 
 int current = 0;
-
-List screens = [HomePage(), Appointment(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,17 @@ List screens = [HomePage(), Appointment(), Profile()];
           });
         },
       ),
-      body: screens[current]
+      body: ScopedModelDescendant(
+          builder: (context, child, CategoryController category) {
+            if(current == 0){
+              return HomePage(category);
+            }else if(current == 1){
+              return Appointment();
+            }else{
+              return Profile();
+            }
+          }
+      )
     );
   }
 }

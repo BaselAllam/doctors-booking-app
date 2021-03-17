@@ -1,5 +1,7 @@
+import 'package:doctor/models/mainmodel.dart';
 import 'package:doctor/widgets/resultitem.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 
 
@@ -61,23 +63,27 @@ Map<int, List> filters = {
               top: true,
               child: filter(filters),
             ),
-            Flexible(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 5,
-                itemBuilder: (context, index){
-                  return ResultItem(
-                    drName: 'Ahmed Abd Ala',
-                    currency: 'EGP',
-                    fee: 200,
-                    image: 'https://avatars.githubusercontent.com/u/44323531?s=460&u=4a0966bc4213dfd7da98c0ca07273948bc32bfad&v=4',
-                    location: 'Heliopolis, Cairo, Egypt',
-                    rating: 4.5,
-                    reviews: 20,
-                    type: 'Dentists',
-                  );
-                } 
-              ),
+            ScopedModelDescendant(
+              builder: (context, child, MainModel model){
+                return Flexible(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: model.allDoctors.length,
+                    itemBuilder: (context, index){
+                      return ResultItem(
+                        drName: model.allDoctors[index].doctorName,
+                        currency: 'EGP',
+                        fee: model.allDoctors[index].fee,
+                        image: model.allDoctors[index].doctorImage,
+                        location: model.allDoctors[index].location,
+                        rating: model.allDoctors[index].rate,
+                        reviews: 20,
+                        type: model.allDoctors[index].category,
+                      );
+                    } 
+                  ),
+                );
+              }
             ),
           ],
         )

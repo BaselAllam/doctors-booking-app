@@ -1,9 +1,9 @@
+import 'package:doctor/models/mainmodel.dart';
 import 'package:doctor/screens/bottomnavbar/appointment.dart';
 import 'package:doctor/screens/bottomnavbar/homepage.dart';
 import 'package:doctor/screens/bottomnavbar/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:doctor/models/categories/categoryController.dart';
 
 
 
@@ -31,7 +31,7 @@ int current = 0;
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            title: Text('Profiel'),
+            title: Text('Profile'),
           ),
         ],
         selectedItemColor: Color(0xff00BBDC),
@@ -44,9 +44,9 @@ int current = 0;
         },
       ),
       body: ScopedModelDescendant(
-          builder: (context, child, CategoryController category) {
+          builder: (context, child, MainModel model) {
             if(current == 0){
-              return HomePage(category);
+              return HomePage(model);
             }else if(current == 1){
               return Appointment();
             }else{

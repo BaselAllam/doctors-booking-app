@@ -1,3 +1,4 @@
+import 'package:doctor/models/mainmodel.dart';
 import 'package:doctor/screens/categoriesandoffers.dart';
 import 'package:doctor/screens/doctorprofile.dart';
 import 'package:doctor/screens/result.dart';
@@ -6,16 +7,15 @@ import 'package:doctor/widgets/homepageitem.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor/screens/searchmap.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:doctor/models/categories/categoryController.dart';
 import 'package:doctor/widgets/loading.dart';
 
 
 
 class HomePage extends StatefulWidget {
 
-final CategoryController category;
+final MainModel model;
 
-HomePage(this.category);
+HomePage(this.model);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -25,7 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    widget.category.getCategories();
+    widget.model.getCategories();
+    widget.model.getDoctors();
     super.initState();
   }
 
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[50],
       body: Container(
         child: ScopedModelDescendant(
-          builder: (context, child, CategoryController category) {
+          builder: (context, child, MainModel model) {
             return ListView(
               scrollDirection: Axis.vertical,
               children: [
@@ -81,15 +82,10 @@ class _HomePageState extends State<HomePage> {
                 headLine('Categories'),
                 Container(
                   height: MediaQuery.of(context).size.height/3,
-                  child: category.isCategoryLoading == true ? Center(child: Loading()) : scrollSection(category),
+                  child: model.isCategoryLoading == true ? Center(child: Loading()) : model.allCategories.isEmpty ? Center(child: Text('no data found')) : scrollSection(model),
                 ),
                 headLine('Suggested Doctors'),
-                doctorItem('Bassel Allam', 'assets/doctor1.jpg'),
-                doctorItem('Shehab Ahmed', 'assets/doctor2.jpg'),
-                doctorItem('Mohamed Ahmed', 'assets/doctor3.jpg'),
-                doctorItem('Bassel Allam', 'assets/doctor1.jpg'),
-                doctorItem('Shehab Ahmed', 'assets/doctor2.jpg'),
-                doctorItem('Mohamed Ahmed', 'assets/doctor3.jpg'),
+                allDoctors(model)
               ],
             );
           }
@@ -115,16 +111,16 @@ class _HomePageState extends State<HomePage> {
       }
     );
   }
-  scrollSection(CategoryController category) {
+  scrollSection(MainModel model) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: category.allCategories.length,
+      itemCount: model.allCategories.length,
       itemBuilder: (context, index){
-        return HomePageItem(category.allCategories[index].categoryName, category.allCategories[index].categoryImage, index);
+        return HomePageItem(model.allCategories[index].categoryName, model.allCategories[index].categoryImage, index);
       },
     );
   }
-  doctorItem(String drName, String drImage) {
+  doctorItem(String drName, String drImage, String category, double rate, String id, MainModel model) {
     return Container(
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -135,7 +131,7 @@ class _HomePageState extends State<HomePage> {
         leading: CircleAvatar(
           minRadius: 35.0,
           maxRadius: 35.0,
-          backgroundImage: AssetImage(drImage),
+          backgroundImage: NetworkImage(drImage),
         ),
         title: Text(
           'Dr: $drName',
@@ -146,14 +142,14 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Dentists',
+              '$category',
               style: TextStyle(color: Color(0xff03CBC8), fontSize: 15.0, fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
                 Icon(Icons.star, color: Colors.amber, size: 15.0),
                 Text(
-                '  4.9  25 Reviews',
+                '  ${rate.toString()}  25 Reviews',
                 style: TextStyle(color: Colors.amber, fontSize: 15.0, fontWeight: FontWeight.bold),
               ),
               ],
@@ -161,9 +157,30 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         onTap: () {
+          model.getDoctorId(id);
           Navigator.push(context, MaterialPageRoute(builder: (_) {return DoctorProfile();}));
         }
       ),
     );
+  }
+  allDoctors(MainModel model) {
+    if(model.isGetDoctorloading == true){
+      return Center(child: Loading());
+    }else if(model.allDoctors.isEmpty){
+      return Center(child: Text('no doctors'));
+    }else{
+      return Column(
+        children: [
+          for(var i in model.allDoctors) doctorItem(
+            i.doctorName,
+            i.doctorImage,
+            i.category,
+            i.rate,
+            i.id,
+            model
+          ),
+        ],
+      );
+    }
   }
 }

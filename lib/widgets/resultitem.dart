@@ -12,7 +12,7 @@ final String type;
 final double rating;
 final String image;
 final int reviews;
-final int fee;
+final double fee;
 final String currency;
 final String location;
 

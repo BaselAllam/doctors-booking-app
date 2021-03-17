@@ -1,6 +1,8 @@
+import 'package:doctor/models/mainmodel.dart';
 import 'package:doctor/widgets/favicon.dart';
 import 'package:doctor/widgets/reviewitem.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 
 
@@ -16,26 +18,30 @@ class _DoctorProfileState extends State<DoctorProfile> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: Container(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            barItem(),
-            Text(
-              '  Biography',
-              style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.0),
-            ),
-            biographyItem(),
-            Text(
-              '  Reviews',
-              style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.0),
-            ),
-            reviewItems()
-          ],
+        child: ScopedModelDescendant(
+          builder: (context, child, MainModel model){
+            return ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                barItem(model),
+                Text(
+                  '  Biography',
+                  style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.0),
+                ),
+                biographyItem(model),
+                Text(
+                  '  Reviews',
+                  style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.0),
+                ),
+                reviewItems(model)
+              ],
+            );
+          }
         ),
       ),
     );
   }
-  barItem() {
+  barItem(MainModel model) {
     return Container(
       height: 450,
       margin: EdgeInsets.only(bottom: 15.0),
@@ -45,7 +51,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
             height: 250.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('https://s3-eu-west-1.amazonaws.com/intercare-web-public/wysiwyg-uploads%2F1569586526901-doctor.jpg'),
+                image: NetworkImage(model.selectedDoctor.doctorImage),
                 fit: BoxFit.fill
               ),
             ),
@@ -87,23 +93,23 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dr: Ahmed',
+                            'Dr: ${model.selectedDoctor.doctorName}',
                             style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
                           ),
                           FavIcon()
                         ],
                       ),
                       Text(
-                        'Dentists',
+                        '${model.selectedDoctor.category}',
                         style: TextStyle(color: Color(0xff00BBDC), fontSize: 18.0, fontWeight: FontWeight.bold, height: 1.5),
                       ),
                       ReviewItem(4.5, 20),
                       Text(
-                        'Location: Helipolis, Cairo, Egypt',
+                        '${model.selectedDoctor.location}',
                         style: TextStyle(color: Colors.grey, fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Fee: 200 \$',
+                        'Fee: ${model.selectedDoctor.fee.toString()} \$',
                         style: TextStyle(color: Colors.grey, fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                       Row(
@@ -131,7 +137,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
       ),
     );
   }
-  biographyItem() {
+  biographyItem(MainModel model) {
     return Container(
       height: 150.0,
       margin: EdgeInsets.all(10.0),
@@ -140,9 +146,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         child: ListTile(
-          leading: Container(width: 100.0, child: Image.network('https://identityguide.hms.harvard.edu/files/hmsidentityguide/files/hms_logo_final_rgb.png?m=1580238232')),
+          leading: Container(width: 100.0, child: Image.network(model.selectedDoctor.collegeImage)),
           title: Text(
-            'Harvard Medical School\nDepartment: Detnists',
+            '${model.selectedDoctor.university}\nDepartment: ${model.selectedDoctor.category}',
             style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.5),
           ),
           subtitle: Text(
@@ -153,7 +159,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
       ),
     );
   }
-  reviewItems() {
+  reviewItems(MainModel model) {
     return Container(
       height: 450.0,
       margin: EdgeInsets.all(10.0),
@@ -167,7 +173,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
             children: [
               ListTile(
                 leading: Text(
-                  '4.5   ',
+                  '${model.selectedDoctor.rate}   ',
                   style: TextStyle(color: Colors.black, fontSize: 35.0, fontWeight: FontWeight.bold),
                 ),
                 title: Text(

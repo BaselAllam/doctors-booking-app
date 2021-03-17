@@ -1,7 +1,7 @@
 import 'package:doctor/widgets/customappbar.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:doctor/screens/add.dart';
 
 
 
@@ -89,16 +89,16 @@ PickedFile image;
               ),
               'Profile'
             ),
-            profileItem(Icons.motorcycle, 'Medicine Delivery'),
-            profileItem(Icons.favorite, 'Favourite'),
-            profileItem(Icons.settings, 'Settings'),
-            profileItem(Icons.exit_to_app, 'Logout'),
+            profileItem(Icons.add, 'Add', () {Navigator.push(context, MaterialPageRoute(builder: (_) {return Add();}));}),
+            profileItem(Icons.favorite, 'Favourite', () {}),
+            profileItem(Icons.settings, 'Settings', () {}),
+            profileItem(Icons.exit_to_app, 'Logout', () {}),
           ],
         ),
       ),
     );
   }
-  profileItem(IconData icon, String title) {
+  profileItem(IconData icon, String title, Function onTap) {
     return Container(
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -112,6 +112,7 @@ PickedFile image;
           style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(Icons.navigate_next, color: Colors.grey, size: 20.0),
+        onTap: onTap
       ),
     );
   }

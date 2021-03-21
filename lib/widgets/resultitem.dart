@@ -44,7 +44,6 @@ bool pressed = false;
                 margin: EdgeInsets.only(right: 10.0),
                 width: MediaQuery.of(context).size.width/4,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
                   image: DecorationImage(
                     image: NetworkImage(widget.image),
                     fit: BoxFit.fill,
@@ -55,12 +54,13 @@ bool pressed = false;
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    widget.drName.length > 10 ? 'Dr: ${widget.drName.substring(0, 10)}..' :
                     'Dr: ${widget.drName}',
-                    style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.5),
+                    style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, height: 1.5),
                   ),
                   Text(
                     widget.type,
-                    style: TextStyle(color: Color(0xff00BBDC), fontSize: 18.0, fontWeight: FontWeight.bold, height: 1.5),
+                    style: TextStyle(color: Color(0xff00BBDC), fontSize: 16.0, fontWeight: FontWeight.bold, height: 1.5),
                   ),
                   ReviewItem(widget.rating, widget.reviews),
                   Text(
@@ -81,18 +81,18 @@ bool pressed = false;
             children: [
               Text(
                 'Add To',
-                style: TextStyle(color: Color(0xff00BBDC), fontSize: 18.0, fontWeight: FontWeight.normal, height: 1.5),
+                style: TextStyle(color: Color(0xff00BBDC), fontSize: 16.0, fontWeight: FontWeight.normal, height: 1.5),
               ),
               FavIcon(),
               SizedBox(width: MediaQuery.of(context).size.width/4),
               Text(
                 'Book',
-                style: TextStyle(color: Color(0xff00BBDC), fontSize: 18.0, fontWeight: FontWeight.normal, height: 1.5),
+                style: TextStyle(color: Color(0xff00BBDC), fontSize: 16.0, fontWeight: FontWeight.normal, height: 1.5),
               ),
               IconButton(
                 icon: Icon(Icons.calendar_today),
                 color: Color(0xff00BBDC),
-                iconSize: 25.0,
+                iconSize: 20.0,
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) {return DoctorProfile();}));
                 }

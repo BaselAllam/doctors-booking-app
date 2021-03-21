@@ -102,7 +102,7 @@ DateTime birthDate = DateTime(1960);
                         },
                       ),
                   Container(
-                    width: MediaQuery.of(context).size.width/1.2,
+                    width: MediaQuery.of(context).size.width/1.22,
                     child: field('Mobile Number', Icons.phone_android, TextInputType.number, false, mobileNumberController, mobileNumberKey),
                   ),
                 ], 

@@ -149,7 +149,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
           leading: Container(width: 100.0, child: Image.network(model.selectedDoctor.collegeImage)),
           title: Text(
             '${model.selectedDoctor.university}\nDepartment: ${model.selectedDoctor.category}',
-            style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold, height: 1.5),
+            style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, height: 1.5),
           ),
           subtitle: Text(
             'Graduation\n2010 : 2015',
@@ -208,7 +208,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               Row(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width/2.3,
+                    width: MediaQuery.of(context).size.width/2.32,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -222,7 +222,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width/2.3,
+                    width: MediaQuery.of(context).size.width/2.32,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

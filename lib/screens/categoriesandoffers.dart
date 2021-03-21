@@ -1,7 +1,7 @@
+import 'package:doctor/models/mainmodel.dart';
 import 'package:doctor/widgets/homepageitem.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:doctor/models/categories/categoryController.dart';
 
 
 
@@ -39,7 +39,7 @@ class _CategoriesAndOffersState extends State<CategoriesAndOffers> {
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: ScopedModelDescendant(
-          builder: (context, child, CategoryController category) {
+          builder: (context, child, MainModel category) {
             if(category.allCategories.isEmpty){
               return Center(child: Text('No Categories Found'));
             }else{

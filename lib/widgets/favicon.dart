@@ -16,7 +16,7 @@ bool pressed = false;
     return IconButton(
       icon: Icon(pressed == false ? Icons.favorite_border : Icons.favorite),
       color: Color(0xff00BBDC),
-      iconSize: 25.0,
+      iconSize: 20.0,
       onPressed: () {
         setState(() {
           pressed = !pressed;
